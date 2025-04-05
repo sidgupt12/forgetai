@@ -18,7 +18,7 @@ export default function SignInPage() {
         </div>
       </div>
       
-      {/* Right side - ForgetAI Info - Even more subtle gradient */}
+      {/* Right side - ForgetAI Info */}
       <div className="hidden md:flex w-1/2 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white">
         <div className="flex flex-col justify-center p-12 space-y-8">
           <div className="mb-4">
