@@ -29,7 +29,7 @@ export default function Header() {
       </div>
       <div className="flex items-center space-x-6">
         <a
-          href="https://github.comhttps://github.com/sidgupt12/forgetai"
+          href="https://github.com/sidgupt12/forgetai"
           target="_blank"
           rel="noopener noreferrer"
           className="px-5 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 flex items-center shadow-sm hover:shadow-md transform hover:-translate-y-1"
