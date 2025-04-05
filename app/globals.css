@@ -98,3 +98,52 @@ h1 span span.char-6 { --char-index: 6; }
   }
 }
 
+.flip-container {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1em; /* Align with text line height */
+}
+
+.flip-word {
+  display: inline-block;
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Animation for "Something" disappearing right to left */
+.flip-word.animate-out {
+  animation: slideRightToLeftOut 1.5s ease-in-out forwards;
+}
+
+/* Animation for "AI" appearing left to right */
+.flip-word.animate-in {
+  animation: slideLeftToRightIn 1.5s ease-in-out forwards;
+}
+
+@keyframes slideRightToLeftOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideLeftToRightIn {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Ensure "AI" stays visible after animation */
+.flip-word:not(.animate-out):not(.animate-in) {
+  transform: translateX(0);
+  opacity: 1;
+}
