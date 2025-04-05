@@ -102,12 +102,11 @@ export default function Hero() {
     setIsMuted(!isMuted);
   };
 
-  // One-time animation from "Something" to "AI"
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentWord('AI');
-      setIsInitial(false); // Stop the animation after the first run
-    }, 1000); // Switch to "AI" after 2.5 seconds (longer than 1.5s)
+      setIsInitial(false); 
+    }, 1000); 
 
     return () => clearTimeout(timer); // Cleanup on unmount
   }, []);
@@ -125,7 +124,7 @@ export default function Hero() {
             <span className="char-6 text-purple-500">t</span>
           </span>
           <span className="flip-container ml-2">
-            <span className={`flip-word text-black ${isInitial ? 'animate-out' : 'animate-in'}`}>
+            <span className={`flip-word text-black dark:text-white ${isInitial ? 'animate-out' : 'animate-in'}`}>
               {currentWord}
             </span>
           </span>
@@ -141,7 +140,6 @@ export default function Hero() {
         </button>
       </div>
 
-      {/* Video section remains unchanged */}
       <div className="md:w-1/2 flex justify-center items-center mt-12 md:mt-0">
         <div className="bg-gray-200 dark:bg-gray-800 rounded-xl w-50 h-80 md:h-96 flex items-center justify-center overflow-hidden shadow-lg relative">
           {videoError ? (
