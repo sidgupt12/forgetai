@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import {  VolumeOffIcon, Volume2Icon } from 'lucide-react';
+import { VolumeOffIcon, Volume2Icon } from 'lucide-react';
 
 export default function Hero() {
   const [videoError, setVideoError] = useState(false);
@@ -12,7 +12,7 @@ export default function Hero() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-between py-24 px-6 max-w-7xl mx-auto ">
+    <div className="flex flex-col md:flex-row justify-between py-24 px-6 max-w-7xl mx-auto">
       <div className="md:w-1/2 space-y-6">
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
           <span>
@@ -61,6 +61,7 @@ export default function Hero() {
               autoPlay
               loop
               muted={isMuted}
+              playsInline // Prevents fullscreen on mobile
               className="w-full h-full object-cover"
               onError={() => setVideoError(true)}
             >
@@ -75,7 +76,7 @@ export default function Hero() {
             className="absolute bottom-4 right-4 bg-gray-800 text-white p-2 rounded-full shadow-md hover:bg-gray-700 transition"
           >
             {isMuted ? (
-              <VolumeOffIcon className="h-6 w-6" /> 
+              <VolumeOffIcon className="h-6 w-6" />
             ) : (
               <Volume2Icon className="h-6 w-6" />
             )}
