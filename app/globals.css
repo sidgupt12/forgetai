@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  
+  body {
+    @apply bg-white dark:bg-black text-black dark:text-white font-body transition-colors duration-300;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.text-colorful {
+  background-image: linear-gradient(
+    to right,
+    #ff4f4f, /* Red - F */
+    #ff9500, /* Orange - O */
+    #ffcc00, /* Yellow - R */
+    #34bf49, /* Green - G */
+    #38b6ff, /* Blue - E */
+    #8c52ff  /* Purple - T */
+  );
+  background-size: 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+}
+
+.text-shadow-none {
+  text-shadow: none !important;
+}
+
+.feature-card {
+  @apply p-6 rounded-xl transition-all duration-300 hover:shadow-lg border border-gray-100 dark:border-gray-800;
+}
+
+.feature-card:hover {
+  @apply transform -translate-y-2 shadow-xl border-gray-200 dark:border-gray-700;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.dark .feature-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+}
+
+.feature-card-icon {
+  @apply w-12 h-12 mb-4 text-indigo-600 dark:text-indigo-400;
+}
+
+/* Colorful character styling */
+.char-1 { color: #FF6B6B; } /* Brighter Red */
+.char-2 { color: #FFB74D; } /* Brighter Orange */
+.char-3 { color: #FFEB3B; } /* Brighter Yellow */
+.char-4 { color: #66BB6A; } /* Brighter Green */
+.char-5 { color: #64B5F6; } /* Brighter Blue */
+.char-6 { color: #AB47BC; } /* Brighter Purple */
+
+/* Add hover effect to colorful letters */
+h1 span span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+h1:hover span span {
+  transform: translateY(-5px);
+  transition-delay: calc(var(--char-index) * 0.05s);
+}
+
+h1 span span.char-1 { --char-index: 1; }
+h1 span span.char-2 { --char-index: 2; }
+h1 span span.char-3 { --char-index: 3; }
+h1 span span.char-4 { --char-index: 4; }
+h1 span span.char-5 { --char-index: 5; }
+h1 span span.char-6 { --char-index: 6; }
+
+.fade-and-slide-in {
+  animation: fadeAndSlideIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeAndSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
