@@ -194,16 +194,39 @@
 import { useState, useEffect } from 'react';
 import { VolumeOffIcon, Volume2Icon } from 'lucide-react';
 import Link from 'next/link';
-import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton, useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+
+// const CustomSignInButton = () => {
+//   const router = useRouter();
+  
+//   // Use the correct Clerk sign-in route format
+//   const handleSignIn = () => {
+//     router.push('/sign-in?redirect_url=/dashboard');
+//   };
+
+//   return (
+//     <button 
+//       onClick={handleSignIn}
+//       className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-full hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-md"
+//     >
+//       Get Started
+//     </button>
+//   );
+// };
 
 const CustomSignInButton = () => {
   const router = useRouter();
+  const { isSignedIn } = useAuth();
   
-  // Simple function to handle the sign-in process
   const handleSignIn = () => {
-    // Use Clerk's sign-in URL directly
-    router.push('/sign-in?redirect_url=/dashboard');
+    // If already signed in, go directly to dashboard
+    if (isSignedIn) {
+      router.push('/dashboard');
+    } else {
+      // Otherwise, go to sign-in with redirect
+      router.push('/sign-in?redirect_url=/dashboard');
+    }
   };
 
   return (
