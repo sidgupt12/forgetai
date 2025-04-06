@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { VolumeOffIcon, Volume2Icon } from 'lucide-react';
+import { VolumeOffIcon, Volume2Icon, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { SignedIn, SignedOut, SignInButton, useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
+import { AuroraBackground } from '@/components/ui/aurora-background';
 
 const CustomSignInButton = () => {
   const router = useRouter();
@@ -47,6 +48,7 @@ export default function Hero() {
   }, []);
 
   return (
+    <AuroraBackground>
     <div className="flex flex-col md:flex-row justify-between py-24 px-6 max-w-7xl mx-auto">
       <div className="md:w-1/2 space-y-6">
         <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight flex items-center">
@@ -80,7 +82,10 @@ export default function Hero() {
             <div className="button-wrapper">
               <Link href="/dashboard">
                 <button className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-full hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-md">
-                  Get Started
+                  Get Started 
+                  <span className="ml-2">
+                    <ArrowRight className="h-4 w-4 inline-block" />
+                  </span>
                 </button>
               </Link>
             </div>
@@ -134,5 +139,6 @@ export default function Hero() {
         </div>
       </div>
     </div>
+    </AuroraBackground>
   );
 }

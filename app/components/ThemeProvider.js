@@ -24,14 +24,11 @@ export function ThemeProvider({ children }) {
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
     localStorage.setItem('theme', newTheme);
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
   };
 
-  if (!mounted) {
-    return <>{children}</>;
-  }
-
+  // You need to return the context provider with value!
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}

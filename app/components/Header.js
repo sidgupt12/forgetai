@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex items-center justify-between py-4 px-6 bg-white dark:bg-true-black border-b border-gray-200 dark:border-gray-800 shadow-sm">
+    <header className="flex items-center justify-between py-2 px-6 bg-white dark:bg-true-black border-b border-gray-200 dark:border-gray-800 shadow-sm">
       <div className="flex items-center w-full md:w-auto">
         <Link href="/" className="transition-transform duration-300 hover:scale-105 mr-auto">
           <div className="relative w-32 h-10 md:w-40 md:h-12">
