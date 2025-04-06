@@ -5,20 +5,10 @@
         "app/page": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
-        },
-        "app/(main)/dashboard/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
-        },
-        "app/_not-found/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
         }
       },
       "layer": {
-        "app/page": "rsc",
-        "app/(main)/dashboard/page": "rsc",
-        "app/_not-found/page": "rsc"
+        "app/page": "rsc"
       }
     },
     "7f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220": {
@@ -26,20 +16,10 @@
         "app/page": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
-        },
-        "app/(main)/dashboard/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
-        },
-        "app/_not-found/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
         }
       },
       "layer": {
-        "app/page": "rsc",
-        "app/(main)/dashboard/page": "rsc",
-        "app/_not-found/page": "rsc"
+        "app/page": "rsc"
       }
     },
     "7f8bc6e49dc98b68cc6863f904cb5bacb012447ce4": {
@@ -47,20 +27,10 @@
         "app/page": {
           "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
           "async": false
-        },
-        "app/(main)/dashboard/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
-        },
-        "app/_not-found/page": {
-          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fkeyless-actions.js%22%2C%5B%7B%22id%22%3A%227f09aa3a1ccdb989e4ed181ee077768464d7e4b50e%22%2C%22exportedName%22%3A%22createOrReadKeylessAction%22%7D%2C%7B%22id%22%3A%227f8a68a0a7fb8b57dc9f50d29fae1849b9fae16220%22%2C%22exportedName%22%3A%22deleteKeylessAction%22%7D%2C%7B%22id%22%3A%227f8bc6e49dc98b68cc6863f904cb5bacb012447ce4%22%2C%22exportedName%22%3A%22syncKeylessConfigAction%22%7D%5D%5D%5D&__client_imported__=!",
-          "async": false
         }
       },
       "layer": {
-        "app/page": "rsc",
-        "app/(main)/dashboard/page": "rsc",
-        "app/_not-found/page": "rsc"
+        "app/page": "rsc"
       }
     },
     "7fc8ad91dd37c3c3248e4dc4045bf7ce97692a43ca": {
@@ -68,20 +38,10 @@
         "app/page": {
           "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%7B%22id%22%3A%227fc8ad91dd37c3c3248e4dc4045bf7ce97692a43ca%22%2C%22exportedName%22%3A%22invalidateCacheAction%22%7D%5D%5D%5D&__client_imported__=true!",
           "async": false
-        },
-        "app/(main)/dashboard/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%7B%22id%22%3A%227fc8ad91dd37c3c3248e4dc4045bf7ce97692a43ca%22%2C%22exportedName%22%3A%22invalidateCacheAction%22%7D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        },
-        "app/_not-found/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fsiddhantgupta%2FDocuments%2Fprojects%2Fforgetai%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%7B%22id%22%3A%227fc8ad91dd37c3c3248e4dc4045bf7ce97692a43ca%22%2C%22exportedName%22%3A%22invalidateCacheAction%22%7D%5D%5D%5D&__client_imported__=true!",
-          "async": false
         }
       },
       "layer": {
-        "app/page": "action-browser",
-        "app/(main)/dashboard/page": "action-browser",
-        "app/_not-found/page": "action-browser"
+        "app/page": "action-browser"
       }
     }
   },
