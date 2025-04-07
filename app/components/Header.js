@@ -123,13 +123,18 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
-import { SignedIn, UserButton } from '@clerk/nextjs';
+import { SignedIn } from '@clerk/nextjs';
 import { UserMenu } from './usermenu';
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const pathname = usePathname();
   
+  // Determine if we're on the dashboard route
+  const isDashboard = pathname.includes('/dashboard');
+
   // Lock body scroll when sidebar is open
   useEffect(() => {
     if (isSidebarOpen) {
@@ -138,7 +143,6 @@ export default function Header() {
       document.body.style.overflow = '';
     }
     
-    // Cleanup function
     return () => {
       document.body.style.overflow = '';
     };
@@ -149,7 +153,11 @@ export default function Header() {
   };
 
   return (
-    <header className="relative flex items-center justify-between py-2 px-6 bg-white dark:bg-true-black border-b border-gray-200 dark:border-gray-800 shadow-sm z-10">
+    <header className={`flex items-center justify-between py-2 px-6 ${
+      isDashboard 
+        ? 'bg-transparent dark:bg-transparent' 
+        : 'bg-white dark:bg-true-black border-b border-gray-200 dark:border-gray-800'
+      } shadow-sm relative z-100`}>
       <div className="flex items-center w-full md:w-auto">
         <Link href="/" className="transition-transform duration-300 hover:scale-105 mr-auto">
           <div className="relative w-32 h-10 md:w-40 md:h-12">
@@ -181,16 +189,16 @@ export default function Header() {
 
       {/* Mobile Menu Button */}
       <button
-        className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-none text-gray-700 dark:text-gray-200 hover:bg-none transition-all duration-300"
-        onClick={toggleSidebar}
-        aria-label="Open menu"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-        </svg>
-      </button>
+          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-transparent text-gray-700 dark:text-gray-200 hover:bg-gray-100/30 dark:hover:bg-gray-800/30 transition-all duration-300"
+          onClick={toggleSidebar}
+          aria-label="Open menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
 
-      {/* Improved Mobile Sidebar */}
+      {/* Modern Sidebar - Higher z-index and improved touch handling */}
       <div 
         className={`fixed inset-y-0 right-0 z-[9999] w-80 bg-white dark:bg-black transform ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-all duration-500 ease-in-out shadow-2xl border-l border-gray-200 dark:border-gray-900`}
         style={{ touchAction: 'pan-y' }}
@@ -198,20 +206,20 @@ export default function Header() {
         <div className="flex flex-col h-full">
           {/* Close Button */}
           <div className="p-6 flex justify-end">
-            <button
-              className="w-12 h-12 rounded-full bg-none text-gray-700 dark:text-gray-200 hover:bg-none transition-all duration-300 flex items-center justify-center"
-              onClick={toggleSidebar}
-              aria-label="Close menu"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+          <button
+            className="w-12 h-12 rounded-full bg-transparent text-gray-700 dark:text-gray-200 hover:bg-gray-100/30 dark:hover:bg-gray-800/30 transition-all duration-300 flex items-center justify-center"
+            onClick={toggleSidebar}
+            aria-label="Close menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
           </div>
 
           {/* Sidebar Content */}
           <nav className="flex flex-col space-y-4 px-6 py-4">
-            {/* UserMenu in mobile sidebar */}
+            {/* Added UserButton in mobile sidebar */}
             <SignedIn>
               <div className="px-6 py-3 flex">
                 <UserMenu afterSignOutUrl="/" />
@@ -246,7 +254,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Improved Overlay */}
+      {/* Improved Overlay with higher z-index and proper touch handling */}
       {isSidebarOpen && (
         <div 
           className="fixed inset-0 z-[9998] bg-black bg-opacity-60 md:hidden transition-opacity duration-300" 
@@ -258,3 +266,4 @@ export default function Header() {
     </header>
   );
 }
+
