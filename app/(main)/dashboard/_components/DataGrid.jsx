@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import { dataApi } from '@/lib/api';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import useApi from '@/lib/hooks/useApi';
 import { cn } from '@/lib/utils';
 
@@ -12,6 +12,7 @@ export default function DataGrid() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
   const { userId } = useAuth();
   const MAX_ITEMS = 20; // Show top 20 items
 
@@ -49,15 +50,18 @@ export default function DataGrid() {
     }
     
     try {
+      setDeletingId(id);
+      // Close popup immediately
+      setIsPopupOpen(false);
+      setSelectedItem(null);
+      
       await dataApi.deleteData(id);
       // Update local state after deletion
       setUserData(userData.filter(item => item.id !== id));
-      
-      // Close popup after deletion
-      setIsPopupOpen(false);
-      setSelectedItem(null);
     } catch (error) {
       console.error('Error deleting item:', error);
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -175,7 +179,7 @@ export default function DataGrid() {
   }
 
   return (
-    <>
+    <div className="relative">
       <div className="mt-8 w-full max-w-6xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6">Your Memory Vault</h2>
         <p className="text-gray-500 dark:text-gray-400 mb-6">
@@ -344,6 +348,37 @@ export default function DataGrid() {
           </motion.div>
         </div>
       )}
-    </>
+
+      {/* Delete Loading Indicator */}
+      <AnimatePresence>
+        {deletingId && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-4 right-4 bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-4 border border-gray-200 dark:border-zinc-700 flex items-center space-x-3"
+          >
+            <div className="flex space-x-1">
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  className="w-2 h-2 bg-red-500 rounded-full"
+                  animate={{
+                    opacity: [0.5, 1, 0.5],
+                    scale: [0.9, 1.1, 0.9],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                  }}
+                />
+              ))}
+            </div>
+            <span className="text-sm text-gray-700 dark:text-gray-300">Deleting item...</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
