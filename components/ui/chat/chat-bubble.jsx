@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 export default function ChatBubble({ message, role }) {
   const isUser = role === 'user';
@@ -75,12 +77,44 @@ export default function ChatBubble({ message, role }) {
     em: ({ node, ...props }) => (
       <em className="italic text-gray-700 dark:text-gray-300" {...props} />
     ),
-    code: ({ node, inline, ...props }) => 
-      inline ? (
-        <code className="bg-gray-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded-md text-sm font-mono text-emerald-600 dark:text-emerald-400" {...props} />
+    code: ({ node, inline, className, children, ...props }) => {
+      const match = /language-(\w+)/.exec(className || '');
+      return !inline && match ? (
+        <div className="relative group">
+          <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(String(children).replace(/\n$/, ''));
+              }}
+              className="p-1 rounded bg-gray-700/50 hover:bg-gray-700 text-gray-300 hover:text-white transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+            </button>
+          </div>
+          <SyntaxHighlighter
+            language={match[1]}
+            style={oneDark}
+            customStyle={{
+              margin: '0.5em 0',
+              borderRadius: '0.5rem',
+              padding: '1em',
+              fontSize: '0.875rem',
+              lineHeight: '1.5',
+            }}
+            {...props}
+          >
+            {String(children).replace(/\n$/, '')}
+          </SyntaxHighlighter>
+        </div>
       ) : (
-        <code className="block bg-gray-50 dark:bg-zinc-800/50 p-2 rounded-lg text-sm font-mono text-gray-700 dark:text-gray-300 my-2" {...props} />
-      ),
+        <code className="bg-gray-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded-md text-sm font-mono text-emerald-600 dark:text-emerald-400" {...props}>
+          {children}
+        </code>
+      );
+    },
     blockquote: ({ node, ...props }) => (
       <blockquote className="border-l-3 border-emerald-500 pl-3 italic my-2 text-gray-600 dark:text-gray-400" {...props} />
     ),
