@@ -11,6 +11,28 @@ export const metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  openGraph: {
+    title: 'ForgetAI',
+    description: 'Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly.',
+    url: 'https://forgetai.siddhant.cc/',
+    siteName: 'ForgetAI',
+    images: [
+      {
+        url: 'https://forgetai.siddhant.cc/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'ForgetAI Preview Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ForgetAI',
+    description: 'Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly.',
+    images: ['https://forgetai.siddhant.cc/logo.png'],
+  },
 };
 
 export default function RootLayout({ children }) {
