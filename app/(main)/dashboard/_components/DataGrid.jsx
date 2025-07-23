@@ -7,12 +7,33 @@ import { motion, AnimatePresence } from 'framer-motion';
 import useApi from '@/lib/hooks/useApi';
 import { cn } from '@/lib/utils';
 
+// Custom Delete Confirmation Modal
+function DeleteConfirmModal({ open, onCancel, onConfirm }) {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-8 max-w-xs w-full flex flex-col items-center">
+        <svg className="w-10 h-10 text-red-500 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        <h3 className="text-lg font-bold mb-2 text-center">Delete Memory?</h3>
+        <p className="text-gray-600 dark:text-gray-300 text-center mb-6">Are you sure you want to delete this memory? This action cannot be undone.</p>
+        <div className="flex gap-2 w-full">
+          <button onClick={onCancel} className="flex-1 py-2 rounded-lg bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-200 dark:hover:bg-zinc-700 transition">Cancel</button>
+          <button onClick={onConfirm} className="flex-1 py-2 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition">Delete</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DataGrid() {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState(null);
+  const [saveStatus, setSaveStatus] = useState({ success: false, message: '' });
   const { userId } = useAuth();
   const MAX_ITEMS = 20; // Show top 20 items
 
@@ -44,25 +65,31 @@ export default function DataGrid() {
   }, []);
 
   // Delete an item
-  const handleDelete = async (id) => {
-    if (!confirm('Are you sure you want to delete this item?')) {
-      return;
-    }
-    
+  const handleDelete = (id) => {
+    setPendingDeleteId(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!pendingDeleteId) return;
     try {
-      setDeletingId(id);
-      // Close popup immediately
+      setDeletingId(pendingDeleteId);
       setIsPopupOpen(false);
       setSelectedItem(null);
-      
-      await dataApi.deleteData(id);
-      // Update local state after deletion
-      setUserData(userData.filter(item => item.id !== id));
+      await dataApi.deleteData(pendingDeleteId);
+      setUserData(userData.filter(item => item.id !== pendingDeleteId));
     } catch (error) {
       console.error('Error deleting item:', error);
     } finally {
       setDeletingId(null);
+      setShowDeleteModal(false);
+      setPendingDeleteId(null);
     }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setPendingDeleteId(null);
   };
 
   // Open popup with item details
@@ -109,10 +136,10 @@ export default function DataGrid() {
   // Get appropriate color for each data type
   const getCardColor = (type) => {
     switch (type) {
-      case 'note': return 'bg-emerald-100 dark:bg-emerald-900/30';
-      case 'pdf': return 'bg-amber-100 dark:bg-amber-900/30';
-      case 'tweet': return 'bg-blue-100 dark:bg-blue-900/30';
-      default: return 'bg-gray-100 dark:bg-gray-800/50';
+      case 'note': return 'bg-gradient-to-br from-emerald-300/80 to-emerald-100/60 dark:from-emerald-700/60 dark:to-emerald-500/40 border-emerald-400/50 dark:border-emerald-600/50 shadow-lg dark:shadow-emerald-900/30';
+      case 'pdf': return 'bg-gradient-to-br from-amber-300/80 to-yellow-100/60 dark:from-amber-700/60 dark:to-yellow-500/40 border-amber-400/50 dark:border-amber-600/50 shadow-lg dark:shadow-amber-900/30';
+      case 'tweet': return 'bg-gradient-to-br from-blue-300/80 to-cyan-100/60 dark:from-blue-700/60 dark:to-cyan-500/40 border-blue-400/50 dark:border-blue-600/50 shadow-lg dark:shadow-blue-900/30';
+      default: return 'bg-gradient-to-br from-gray-300/80 to-gray-100/60 dark:from-gray-700/60 dark:to-gray-500/40 border-gray-200/50 dark:border-gray-700/50 shadow-lg dark:shadow-black/30';
     }
   };
   
@@ -193,12 +220,13 @@ export default function DataGrid() {
           <motion.div
             key={item.id}
             className={cn(
-              "relative rounded-2xl p-5 border border-neutral-200 dark:border-neutral-800 overflow-hidden cursor-pointer",
+              "relative rounded-2xl p-5 border overflow-hidden cursor-pointer transition-all duration-300",
               getCardColor(item.data_type),
-              getCardSpan(item, index)
+              getCardSpan(item, index),
+              "hover:scale-[1.025] hover:shadow-2xl hover:z-10 dark:hover:shadow-lg dark:hover:shadow-emerald-500/20"
             )}
             onClick={() => openPopup(item)}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -236,149 +264,126 @@ export default function DataGrid() {
 
       {/* Stylized Detail Popup */}
       {isPopupOpen && selectedItem && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-hidden" onClick={() => setIsPopupOpen(false)}>
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-hidden" onClick={() => setIsPopupOpen(false)}>
           <motion.div 
-            className="relative max-w-2xl w-full bg-white/90 dark:bg-neutral-900/90 rounded-2xl overflow-hidden shadow-[0_0_15px_rgba(0,0,0,0.1)] backdrop-blur-xl border border-white/20 dark:border-neutral-800/30"
+            className="relative w-full max-w-[95vw] md:max-w-lg max-h-[90vh] overflow-hidden bg-white dark:bg-zinc-900 shadow-xl rounded-2xl flex flex-col p-0"
             onClick={e => e.stopPropagation()}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            {/* Animated Background Accent */}
-            <div className={`absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r ${getPopupAccentColor(selectedItem.data_type)}`}></div>
+            <button 
+              onClick={() => setIsPopupOpen(false)}
+              className="absolute top-2 right-2 p-1 rounded-full bg-white/50 dark:bg-zinc-800/50 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-white/80 dark:hover:bg-zinc-700/80 transition"
+              aria-label="Close popup"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
             
-            {/* Animated Background Pattern */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none">
-              <svg className="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-                  </pattern>
-                </defs>
-                <rect width="100" height="100" fill="url(#grid)" />
-              </svg>
-            </div>
-
-            {/* Magic UI Box Reveal Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 dark:via-neutral-800/10 to-transparent opacity-0 hover:opacity-100 pointer-events-none transition-all duration-1500 transform translate-x-[-100%] hover:translate-x-[100%]" />
-            
-            <div className="flex justify-between items-center p-6 border-b border-neutral-200 dark:border-neutral-800/50">
-              <div className="flex items-center gap-3">
-                <div className={cn(
-                  "w-10 h-10 rounded-full flex items-center justify-center",
-                  getCardColor(selectedItem.data_type)
-                )}>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    {getIcon(selectedItem.data_type)}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold capitalize tracking-tight" style={{
-                    fontFamily: "'Space Grotesk', sans-serif"
-                  }}>{selectedItem.data_type}</h3>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 block">
-                    Created on {formatDate(selectedItem.created_at)}
-                  </span>
-                </div>
+            <div className="flex items-center gap-3 px-6 pt-6 pb-2 border-b border-gray-100 dark:border-zinc-800">
+              <div className={cn(
+                "w-10 h-10 rounded-full flex items-center justify-center",
+                getCardColor(selectedItem.data_type)
+              )}>
+                <span className="text-gray-700 dark:text-gray-300">
+                  {getIcon(selectedItem.data_type)}
+                </span>
               </div>
-              
-              <div className="flex gap-2">
-                <button
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
-                  onClick={() => setIsPopupOpen(false)}
-                  aria-label="Close"
+              <div>
+                <h3 className="text-lg font-bold capitalize tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{selectedItem.data_type}</h3>
+                <span className="text-xs text-gray-500 dark:text-gray-400 block">
+                  Created on {formatDate(selectedItem.created_at)}
+                </span>
+              </div>
+            </div>
+            {/* If PDF, show Open PDF button */}
+            {selectedItem.data_type === 'pdf' && selectedItem.file_url && (
+              <div className="flex justify-end px-6 pt-2">
+                <a
+                  href={selectedItem.file_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 text-white font-semibold text-sm shadow hover:bg-emerald-700 transition"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                  Open PDF
+                </a>
+              </div>
+            )}
+
+            <div className="px-6 py-8">
+              <div className="bg-gray-50 dark:bg-zinc-800 p-5 rounded-xl max-h-[50vh] overflow-y-auto border border-gray-100 dark:border-zinc-800">
+                <div className="text-base whitespace-pre-wrap font-sans text-gray-800 dark:text-gray-100">
+                  {renderContentWithLinks(selectedItem.data_value)}
+                </div>
               </div>
             </div>
-            
-            <div className="p-6">
-              <div className="bg-gray-50/80 dark:bg-black/20 p-4 rounded-lg max-h-[60vh] overflow-y-auto backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-800/30">
-                <pre className="text-sm whitespace-pre-wrap font-mono text-gray-700 dark:text-gray-300">
-                  {selectedItem.data_value}
-                </pre>
-              </div>
-            </div>
-            
-            <div className="p-6 pt-2 flex justify-end">
-              {/* Stylized Delete Button */}
+            <div className="flex justify-end px-6 pb-6">
               <button
                 onClick={() => handleDelete(selectedItem.id)}
-                className="group relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-red-500 rounded-full shadow-md"
+                className="inline-flex items-center gap-1 px-5 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-semibold text-sm shadow transition-all"
+                aria-label="Delete Memory"
               >
-                <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-red-500 group-hover:translate-x-0 ease">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                </span>
-                <span className="absolute flex items-center justify-center w-full h-full text-red-500 transition-all duration-300 transform group-hover:translate-x-full ease">Delete Item</span>
-                <span className="relative invisible">Delete Item</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+                Delete
               </button>
             </div>
             
-            {/* Floating particles animation */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-              {[...Array(20)].map((_, i) => (
-                <div 
-                  key={i}
-                  className="absolute rounded-full"
-                  style={{
-                    width: Math.random() * 8 + 4 + 'px',
-                    height: Math.random() * 8 + 4 + 'px',
-                    left: Math.random() * 100 + '%',
-                    top: Math.random() * 100 + '%',
-                    opacity: Math.random() * 0.3,
-                    background: `linear-gradient(to right, ${selectedItem.data_type === 'note' ? '#10B981' : selectedItem.data_type === 'pdf' ? '#F59E0B' : '#3B82F6'}, transparent)`,
-                    animation: `float ${Math.random() * 10 + 10}s linear infinite`,
-                    animationDelay: Math.random() * 5 + 's'
-                  }}
-                />
-              ))}
-              <style jsx>{`
-                @keyframes float {
-                  0% { transform: translateY(0) rotate(0deg); }
-                  100% { transform: translateY(-100vh) rotate(360deg); }
-                }
-              `}</style>
-            </div>
           </motion.div>
         </div>
       )}
 
-      {/* Delete Loading Indicator */}
+      {/* Custom Delete Confirmation Modal */}
+      <DeleteConfirmModal open={showDeleteModal} onCancel={cancelDelete} onConfirm={confirmDelete} />
+      {/* Modern Success Popup for Memory Creation */}
       <AnimatePresence>
         {deletingId && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-4 right-4 bg-white dark:bg-zinc-800 rounded-lg shadow-lg p-4 border border-gray-200 dark:border-zinc-700 flex items-center space-x-3"
+            className="fixed bottom-4 right-4 bg-white dark:bg-zinc-900 rounded-xl shadow-2xl px-6 py-4 border border-gray-100 dark:border-zinc-800 flex items-center gap-3"
           >
-            <div className="flex space-x-1">
-              {[0, 1, 2].map((i) => (
-                <motion.div
-                  key={i}
-                  className="w-2 h-2 bg-red-500 rounded-full"
-                  animate={{
-                    opacity: [0.5, 1, 0.5],
-                    scale: [0.9, 1.1, 0.9],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: i * 0.2,
-                  }}
-                />
-              ))}
+            <svg className="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            <span className="text-base text-gray-700 dark:text-gray-200">Deleting memory...</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {saveStatus && saveStatus.success && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center"
+          >
+            <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-2xl rounded-3xl shadow-2xl px-10 py-8 flex flex-col items-center border border-gray-100 dark:border-zinc-800">
+              <svg className="w-16 h-16 text-emerald-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12l3 3 5-5" /></svg>
+              <span className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Memory Added!</span>
+              <span className="text-base text-gray-600 dark:text-gray-300 text-center">Your memory was saved successfully.</span>
             </div>
-            <span className="text-sm text-gray-700 dark:text-gray-300">Deleting item...</span>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
+}
+
+// Helper to render clickable links in memory content
+function renderContentWithLinks(text) {
+  if (!text) return null;
+  // Regex to match URLs
+  const urlRegex = /(https?:\/\/[\w\-._~:/?#[\]@!$&'()*+,;=%]+)|(www\.[\w\-._~:/?#[\]@!$&'()*+,;=%]+)/gi;
+  const parts = text.split(urlRegex);
+  return parts.map((part, i) => {
+    if (!part) return null;
+    if (part.match(urlRegex)) {
+      const url = part.startsWith('http') ? part : `https://${part}`;
+      return <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="text-emerald-600 underline break-all hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300">{part}</a>;
+    }
+    return <span key={i}>{part}</span>;
+  });
 }
