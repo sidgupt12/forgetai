@@ -297,7 +297,7 @@ export default function ChatRoom({ params }) {
                 </span>
               </div>
               <div className="flex-1 flex justify-center">
-                <button onClick={toggleTheme} className="text-sm font-medium transition-all duration-200 cursor-pointer relative text-slate-600 hover:text-slate-900 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center w-9 h-9 rounded-full">
+                <button onClick={toggleTheme} className="hidden md:flex text-sm font-medium transition-all duration-200 cursor-pointer relative text-slate-600 hover:text-slate-900 dark:text-gray-400 dark:hover:text-gray-200 items-center justify-center w-9 h-9 rounded-full">
                   {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
                 </button>
               </div>
@@ -305,13 +305,13 @@ export default function ChatRoom({ params }) {
                 <Button
                   variant="default"
                   size="sm"
-                  className="flex items-center gap-2 bg-black text-white hover:bg-gray-900 transition-all"
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm md:px-4 md:py-2 bg-black text-white hover:bg-gray-900 transition-all min-h-0 h-8 md:h-9"
                   onClick={() => setIsPopupOpen(true)}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="hidden md:inline h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                   </svg>
-                  Add Memory
+                  <span className="text-xs md:text-sm">Add Memory</span>
                 </Button>
                 <SignedOut>
                   <SignInButton mode="redirect" signInFallbackRedirectUrl="/dashboard">

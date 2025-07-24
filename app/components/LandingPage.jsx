@@ -369,9 +369,9 @@ export default function LandingPage() {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href={isSignedIn ? '/dashboard' : '/sign-in?redirect_url=/dashboard'} passHref onClick={handleGetStarted}>
-                  <Button asChild size="lg" className="text-lg px-8 bg-slate-900 hover:bg-slate-800 dark:bg-gray-950 dark:hover:bg-gray-900 text-white transition-all duration-200 hover:scale-105" disabled={isLoading}>
+              <div className="flex flex-col sm:flex-row gap-4 w-full">
+                <Link href={isSignedIn ? '/dashboard' : '/sign-in?redirect_url=/dashboard'} passHref onClick={handleGetStarted} className="w-full sm:w-auto">
+                  <Button asChild size="lg" className="w-full sm:w-auto text-lg px-8 bg-slate-900 hover:bg-slate-800 dark:bg-emerald-700 dark:hover:bg-emerald-800 text-white transition-all duration-200 hover:scale-105 border-2 border-transparent dark:border-emerald-400 focus-visible:ring-2 focus-visible:ring-emerald-400" disabled={isLoading}>
                     <span>
                       {isLoading ? (
                         <span className="flex items-center justify-center">
@@ -384,15 +384,17 @@ export default function LandingPage() {
                     </span>
                   </Button>
                 </Link>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-lg px-8 border-slate-200 text-slate-700 hover:bg-slate-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-950 transition-all duration-200 bg-transparent"
-                  onClick={handleWatchDemo}
-                >
-                  <Play className="mr-2 h-5 w-5" />
-                  Watch Demo
-                </Button>
+                <div className="w-full sm:w-auto">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full sm:w-auto text-lg px-8 border-slate-200 text-slate-700 hover:bg-slate-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-950 transition-all duration-200 bg-transparent"
+                    onClick={handleWatchDemo}
+                  >
+                    <Play className="mr-2 h-5 w-5" />
+                    Watch Demo
+                  </Button>
+                </div>
               </div>
 
               <div className="flex items-center space-x-8 text-sm text-slate-500 dark:text-gray-500">
@@ -411,7 +413,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="relative hero-video">
+            <div className="relative hero-video mt-8 sm:mt-0">
               <div ref={videoContainerRef} className="relative">
                 <div className="relative bg-white dark:bg-gray-950 rounded-2xl p-2 shadow-2xl border border-white/20 dark:border-gray-900/20">
                   <video
@@ -440,7 +442,7 @@ export default function LandingPage() {
               </div>
 
               {/* Floating Elements - Better Icons */}
-              <div className="absolute -top-6 -left-6 w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 rounded-2xl shadow-lg flex items-center justify-center floating-element">
+              <div className="absolute -top-6 left-2 sm:left-[-24px] w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 rounded-2xl shadow-lg flex items-center justify-center floating-element z-10" style={{ maxWidth: '64px', maxHeight: '64px' }}>
                 <svg className="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -451,8 +453,8 @@ export default function LandingPage() {
                 </svg>
               </div>
               <div
-                className="absolute -bottom-6 -right-6 w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg flex items-center justify-center floating-element"
-                style={{ animationDelay: "0.5s" }}
+                className="absolute -bottom-6 right-2 sm:right-[-24px] w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg flex items-center justify-center floating-element z-10"
+                style={{ animationDelay: "0.5s", maxWidth: '56px', maxHeight: '56px' }}
               >
                 <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -628,9 +630,9 @@ export default function LandingPage() {
               Join thousands of users who have transformed their memory and productivity with forgetAI. Start using it
               today - completely free, forever.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-row gap-4 justify-center">
               <Link href={isSignedIn ? '/dashboard' : '/sign-in?redirect_url=/dashboard'} passHref onClick={handleGetStarted}>
-                <Button asChild size="lg" className="text-lg px-8 bg-slate-900 hover:bg-slate-800 dark:bg-gray-950 dark:hover:bg-gray-900 text-white transition-all duration-200 hover:scale-105" disabled={isLoading}>
+                <Button asChild size="lg" className="text-base md:text-lg px-5 md:px-8 bg-slate-900 hover:bg-slate-800 dark:bg-gray-950 dark:hover:bg-gray-900 text-white transition-all duration-200 hover:scale-105" disabled={isLoading}>
                   <span>
                     {isLoading ? (
                       <span className="flex items-center justify-center">
@@ -646,7 +648,7 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 border-slate-200 text-slate-700 hover:bg-slate-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-950 transition-all duration-200 bg-transparent"
+                className="text-base md:text-lg px-5 md:px-8 border-slate-200 text-slate-700 hover:bg-slate-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-950 transition-all duration-200 bg-transparent"
               >
                 Learn More
               </Button>
