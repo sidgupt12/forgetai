@@ -422,9 +422,10 @@ export default function LandingPage() {
                     loop
                     muted
                     playsInline
+                    autoPlay
                     onClick={togglePlay}
                   >
-                    <source src="/video.mp4" type="video/mp4" />
+                    <source src="https://video-worker.sidgupt12.workers.dev/ForgetAI_Cosmic_Memory_Visualization.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
 
@@ -763,7 +764,7 @@ export default function LandingPage() {
 
             <div className="relative bg-white dark:bg-black rounded-2xl p-2 shadow-2xl">
               <video ref={popupVideoRef} className="w-full h-auto rounded-xl" controls autoPlay>
-                <source src="/video.mp4" type="video/mp4" />
+                <source src="https://video-worker.sidgupt12.workers.dev/ForgetAI_Cosmic_Memory_Visualization.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
