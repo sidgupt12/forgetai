@@ -285,7 +285,7 @@ export default function ChatRoom({ params }) {
       {/* Dashboard Header reused for chat */}
       <header className="sticky top-4 z-50 w-full px-4 md:px-6">
         <div className="container mx-auto">
-          <div className="bg-gray-100/50 dark:bg-gray-800/50 backdrop-blur-3xl border border-white/20 dark:border-gray-700/50 rounded-2xl shadow-md dark:shadow-xl dark:shadow-black/40">
+          <div className="bg-white/20 dark:bg-black/20 backdrop-blur-[40px] backdrop-saturate-[180%] border border-white/30 dark:border-white/10 rounded-2xl shadow-lg dark:shadow-2xl dark:shadow-black/50 ring-1 ring-white/20 dark:ring-white/5">
             <div className="flex h-14 items-center justify-between px-6">
               <div className="flex items-center space-x-3">
                 <div className="relative w-7 h-7">
@@ -305,7 +305,7 @@ export default function ChatRoom({ params }) {
                 <Button
                   variant="default"
                   size="sm"
-                  className="flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm md:px-4 md:py-2 bg-black text-white hover:bg-gray-900 transition-all min-h-0 h-8 md:h-9"
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs md:text-sm md:px-4 md:py-2 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-gray-100 transition-all min-h-0 h-8 md:h-9"
                   onClick={() => setIsPopupOpen(true)}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="hidden md:inline h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -332,7 +332,7 @@ export default function ChatRoom({ params }) {
             </div>
 
             {isMenuOpen && (
-              <div className="md:hidden border-t border-white/20 dark:border-gray-700/50 bg-gray-100/50 dark:bg-gray-800/50 backdrop-blur-3xl rounded-b-2xl">
+              <div className="md:hidden border-t border-white/30 dark:border-white/10 bg-white/20 dark:bg-black/20 backdrop-blur-[40px] backdrop-saturate-[180%] rounded-b-2xl">
                 <nav className="px-6 py-4 space-y-3">
                   <SignedOut>
                     <SignInButton mode="redirect" signInFallbackRedirectUrl="/dashboard">
