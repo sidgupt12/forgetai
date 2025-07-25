@@ -201,20 +201,22 @@ function Dashboard() {
         </div>
 
         {/* Floating Add Button */}
-        <div className="fixed bottom-8 right-8 z-50">
-          <button
-            onClick={() => setIsPopupOpen(true)}
-            className="flex items-center gap-2 px-6 py-3 rounded-full shadow-lg transition-all duration-200 font-semibold text-base
-              bg-black text-white hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200
-              focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-            aria-label="Add Memory"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-            Add Memory
-          </button>
-        </div>
+        {!isPopupOpen && (
+          <div className="fixed bottom-8 right-8 z-50">
+            <button
+              onClick={() => setIsPopupOpen(true)}
+              className="flex items-center gap-2 px-6 py-3 rounded-full shadow-lg transition-all duration-200 font-semibold text-base
+                bg-black text-white hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200
+                focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              aria-label="Add Memory"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              Add Memory
+            </button>
+          </div>
+        )}
       </div>
 
       <BrainPopup isOpen={isPopupOpen} onClose={() => setIsPopupOpen(false)} onSubmit={handleBrainSubmit} />

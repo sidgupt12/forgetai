@@ -86,20 +86,20 @@ const FileUpload = ({ onChange }) => {
         // Display the dropzone area
         <div
           {...getRootProps()}
-          className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl cursor-pointer transition-colors duration-200 ease-in-out
+          className={`flex flex-col items-center justify-center w-full h-32 md:h-48 border-2 border-dashed rounded-xl cursor-pointer transition-colors duration-200 ease-in-out
             ${isDragActive 
               ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30' 
               : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-zinc-800 hover:bg-gray-100 dark:hover:bg-zinc-700'
             }`}
         >
           <input {...getInputProps()} />
-          <div className="flex flex-col items-center justify-center pt-4 pb-4 text-center px-4">
-            <IconUpload className="h-8 w-8 mb-3 text-gray-500 dark:text-gray-400" />
+          <div className="flex flex-col items-center justify-center pt-2 md:pt-4 pb-2 md:pb-4 text-center px-4">
+            <IconUpload className="h-6 w-6 md:h-8 md:w-8 mb-2 md:mb-3 text-gray-500 dark:text-gray-400" />
             {isDragActive ? (
-               <p className="text-sm text-blue-600 dark:text-blue-400 font-semibold">Drop the PDF here...</p>
+               <p className="text-xs md:text-sm text-blue-600 dark:text-blue-400 font-semibold">Drop the PDF here...</p>
             ) : (
               <>
-                <p className="mb-1 text-sm text-gray-600 dark:text-gray-300">
+                <p className="mb-1 text-xs md:text-sm text-gray-600 dark:text-gray-300">
                   <span className="font-semibold">Click to upload</span> or drag and drop
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">PDF only (MAX. 5MB)</p>
@@ -259,7 +259,7 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
     >
       <motion.div
         ref={dialogRef}
-        className="relative z-50 w-full max-w-[95vw] md:max-w-2xl max-h-[90vh] overflow-hidden bg-white/90 dark:bg-zinc-900/90 backdrop-blur-2xl shadow-2xl rounded-3xl flex flex-col p-0"
+        className="relative z-50 w-full max-w-[95vw] md:max-w-2xl max-h-[75vh] md:max-h-[90vh] overflow-hidden bg-white/90 dark:bg-zinc-900/90 backdrop-blur-2xl shadow-2xl rounded-3xl flex flex-col p-0"
         tabIndex="-1"
         style={{ pointerEvents: "auto" }}
         initial={{ opacity: 0, scale: 0.9 }}
@@ -274,7 +274,7 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
         </div>
 
         {/* Main Content Area (Tabs and Content Panes) */}
-        <div className="flex-grow overflow-hidden flex flex-col md:flex-row md:gap-2 px-2 md:px-4 py-4"> 
+        <div className="flex-grow overflow-hidden flex flex-col md:flex-row md:gap-2 px-2 md:px-4 py-2 md:py-4"> 
           {/* Tabs Navigation (Left Column on md+) */}
           <div
             dir="ltr" data-orientation="horizontal"
@@ -289,7 +289,7 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
               <button
                 type="button" role="tab" onClick={() => setActiveTab("note")}
                 aria-selected={activeTab === "note"}
-                className={`whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-start text-left px-4 py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-zinc-700 flex flex-col items-start gap-1 transition-all duration-200 hover:shadow-md ${
+                className={`whitespace-nowrap text-xs md:text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-start text-left px-3 md:px-4 py-1.5 md:py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-zinc-700 flex flex-col items-start gap-1 transition-all duration-200 hover:shadow-md ${
                   activeTab === "note" ? "border-emerald-500/30 bg-emerald-500/20 text-foreground shadow-md dark:text-white" : "border-transparent text-gray-600 dark:text-gray-400"
                 }`}
               >
@@ -303,7 +303,7 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
               <button
                 type="button" role="tab" onClick={() => setActiveTab("document")}
                 aria-selected={activeTab === "document"}
-                className={`whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-start text-left px-4 py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-zinc-700 flex flex-col items-start gap-1 transition-all duration-200 hover:shadow-md ${
+                className={`whitespace-nowrap text-xs md:text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-start text-left px-3 md:px-4 py-1.5 md:py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-zinc-700 flex flex-col items-start gap-1 transition-all duration-200 hover:shadow-md ${
                   activeTab === "document" ? "border-amber-500/30 bg-amber-500/20 text-foreground shadow-md dark:text-white" : "border-transparent text-gray-600 dark:text-gray-400"
                 }`}
               >
@@ -317,7 +317,7 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
               <button
                 type="button" role="tab" onClick={() => setActiveTab("integrations")}
                  aria-selected={activeTab === "integrations"}
-                className={`whitespace-nowrap text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-start text-left px-4 py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-zinc-700 flex flex-col items-start gap-1 transition-all duration-200 hover:shadow-md ${
+                className={`whitespace-nowrap text-xs md:text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full justify-start text-left px-3 md:px-4 py-1.5 md:py-2 rounded-lg border hover:bg-gray-200 dark:hover:bg-zinc-700 flex flex-col items-start gap-1 transition-all duration-200 hover:shadow-md ${
                   activeTab === "integrations" ? "border-blue-500/30 bg-blue-500/20 text-foreground shadow-md dark:text-white" : "border-transparent text-gray-600 dark:text-gray-400"
                 }`}
               >
@@ -347,12 +347,12 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
             {/* Content based on activeTab */}
             {activeTab === "note" && (
               <div data-state="active" role="tabpanel" className="ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                <div className="flex flex-col gap-4 p-4 md:p-6 bg-gray-50 dark:bg-zinc-800 rounded-xl shadow-lg border border-emerald-500/30">
-                  <label className="text-lg font-semibold text-zinc-900 dark:text-zinc-100" htmlFor="note">Thoughts</label>
+                <div className="flex flex-col gap-3 md:gap-4 p-3 md:p-6 bg-gray-50 dark:bg-zinc-800 rounded-xl shadow-lg border border-emerald-500/30">
+                  <label className="text-base md:text-lg font-semibold text-zinc-900 dark:text-zinc-100" htmlFor="note">Thoughts</label>
                   <textarea
                     id="note" value={content.note} onChange={(e) => setContent({ ...content, note: e.target.value })}
                     placeholder="Add your thoughts to Forget AI..."
-                    className="w-full h-64 p-4 rounded-lg bg-white dark:bg-zinc-900 text-gray-900 dark:text-white text-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 resize-none shadow-sm"
+                    className="w-full h-32 md:h-64 p-3 md:p-4 rounded-lg bg-white dark:bg-zinc-900 text-gray-900 dark:text-white text-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-500/40 resize-none shadow-sm"
                   />
                 </div>
               </div>
@@ -360,8 +360,8 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
 
             {activeTab === "document" && (
               <div data-state="active" role="tabpanel" className="ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                 <div className="flex flex-col gap-4 p-4 md:p-6 bg-gray-50 dark:bg-zinc-800 rounded-xl shadow-lg border border-amber-500/30">
-                   <label className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Upload PDF</label>
+                 <div className="flex flex-col gap-3 md:gap-4 p-3 md:p-6 bg-gray-50 dark:bg-zinc-800 rounded-xl shadow-lg border border-amber-500/30">
+                   <label className="text-base md:text-lg font-semibold text-zinc-900 dark:text-zinc-100">Upload PDF</label>
                    {/* Use the updated FileUpload component here */}
                    <FileUpload
                      onChange={(selectedFile) => setContent({ ...content, document: selectedFile })} 
@@ -372,13 +372,13 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
 
             {activeTab === "integrations" && (
               <div data-state="active" role="tabpanel" className="ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                <div className="flex flex-col gap-4 p-4 md:p-6 bg-gray-50 dark:bg-zinc-800 rounded-xl shadow-lg border border-blue-500/30">
-                   <label className="text-lg font-semibold text-zinc-900 dark:text-zinc-100" htmlFor="tweet">Tweet URL</label>
+                <div className="flex flex-col gap-3 md:gap-4 p-3 md:p-6 bg-gray-50 dark:bg-zinc-800 rounded-xl shadow-lg border border-blue-500/30">
+                   <label className="text-base md:text-lg font-semibold text-zinc-900 dark:text-zinc-100" htmlFor="tweet">Tweet URL</label>
                    <input
                     id="tweet" type="url" // Changed to type="url" for better semantics
                     value={content.integrations} onChange={(e) => setContent({ ...content, integrations: e.target.value })}
                     placeholder="Enter Tweet URL (e.g., https://twitter.com/user/status/123...)"
-                    className="w-full p-4 rounded-lg bg-white dark:bg-zinc-900 text-gray-900 dark:text-white text-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40 shadow-sm"
+                    className="w-full p-3 md:p-4 rounded-lg bg-white dark:bg-zinc-900 text-gray-900 dark:text-white text-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40 shadow-sm"
                    />
                 </div>
               </div>
@@ -387,15 +387,15 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
         </div>
 
         {/* Footer Buttons */}
-        <div className="flex-shrink-0 flex flex-col gap-2 md:flex-row md:justify-end md:space-x-2 border-t border-gray-100 dark:border-zinc-800 pt-4 mt-4 px-6 pb-6">
+        <div className="flex-shrink-0 flex flex-row justify-end gap-2 border-t border-gray-100 dark:border-zinc-800 pt-3 md:pt-4 mt-2 md:mt-4 px-4 md:px-6 pb-4 md:pb-6">
           <button
-            className="w-full md:w-auto inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-700 h-11 px-6 py-2 shadow-sm"
+            className="flex-1 md:w-auto md:flex-initial inline-flex items-center justify-center whitespace-nowrap rounded-lg text-xs md:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 dark:border-gray-600 bg-white dark:bg-zinc-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-700 h-8 md:h-11 px-4 md:px-6 py-1.5 md:py-2 shadow-sm"
             type="button" onClick={onClose} disabled={isSubmitting}
           >
             Cancel
           </button>
           <button
-            className={`w-full md:w-auto inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500 disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white shadow hover:bg-emerald-700 h-11 px-6 py-2 relative ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
+            className={`flex-1 md:w-auto md:flex-initial inline-flex items-center justify-center whitespace-nowrap rounded-lg text-xs md:text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500 disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white shadow hover:bg-emerald-700 h-8 md:h-11 px-4 md:px-6 py-1.5 md:py-2 relative ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
             onClick={handleSubmit}
             disabled={
               isSubmitting ||
@@ -406,7 +406,7 @@ export default function BrainPopup({ isOpen, onClose, onSubmit }) {
           >
             {isSubmitting ? (
               <>
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle> <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path> </svg>
+                <svg className="animate-spin -ml-1 mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle> <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path> </svg>
                 Saving...
               </>
             ) : (
