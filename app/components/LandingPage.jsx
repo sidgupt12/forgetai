@@ -34,6 +34,7 @@ export default function LandingPage() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeSection, setActiveSection] = useState("hero")
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [showPreloader, setShowPreloader] = useState(true)
   const heroRef = useRef(null)
   const featuresRef = useRef(null)
   const videoRef = useRef(null)
@@ -43,6 +44,17 @@ export default function LandingPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    // Preloader effect
+    const timer = setTimeout(() => {
+      const curtain = document.querySelector('.preloader-curtain')
+      if (curtain) {
+        curtain.classList.add('preloader-exit')
+      }
+      setTimeout(() => {
+        setShowPreloader(false)
+      }, 800) // Match the CSS transition duration
+    }, 2000) // Show preloader for 2 seconds
+
     // Load GSAP-like animations
     const observerOptions = {
       threshold: 0.1,
@@ -105,6 +117,7 @@ export default function LandingPage() {
     handleScroll()
 
     return () => {
+      clearTimeout(timer)
       observer.disconnect()
       window.removeEventListener("scroll", handleScroll)
     }
@@ -201,6 +214,27 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-emerald-50/20 dark:from-black dark:via-gray-950 dark:to-black">
+      {/* Curtain Preloader */}
+      {showPreloader && (
+        <div className="preloader-curtain fixed inset-0 z-[200] bg-black flex items-center justify-center">
+          <div className="relative">
+            {/* Rotating Logo */}
+            <div className="w-24 h-24 rotating-logo">
+              <Image
+                src="/logo-light.png"
+                alt="forgetAI Logo"
+                fill
+                className="object-contain"
+              />
+            </div>
+            {/* Loading Text */}
+            <div className="mt-4 text-center">
+              <div className="text-white text-xl font-medium">forgetAI</div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 w-full h-1 bg-slate-200/50 dark:bg-gray-800/50 z-[60] backdrop-blur-sm">
         <div
@@ -773,6 +807,28 @@ export default function LandingPage() {
       )}
 
       <style jsx>{`
+        .preloader-curtain {
+          transform: translateY(0);
+          transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        
+        .preloader-curtain.preloader-exit {
+          transform: translateY(-100%);
+        }
+        
+        .rotating-logo {
+          animation: rotateCenter 2s linear infinite;
+        }
+        
+        @keyframes rotateCenter {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        
         .hero-section {
           opacity: 0;
           transform: translateY(30px);
