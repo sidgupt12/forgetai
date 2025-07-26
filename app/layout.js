@@ -11,6 +11,7 @@ export const metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  metadataBase: new URL('https://forgetai.siddhant.cc'),
   openGraph: {
     title: 'ForgetAI',
     description: 'Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly.',
@@ -18,10 +19,10 @@ export const metadata = {
     siteName: 'ForgetAI',
     images: [
       {
-        url: 'https://forgetai.siddhant.cc/logo.png',
+        url: '/preview.png',
         width: 1200,
         height: 630,
-        alt: 'ForgetAI Preview Image',
+        alt: 'ForgetAI - Your personal AI memory assistant',
       },
     ],
     locale: 'en_US',
@@ -31,7 +32,9 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'ForgetAI',
     description: 'Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly.',
-    images: ['https://forgetai.siddhant.cc/logo.png'],
+    images: ['/preview.png'],
+    creator: '@sidgupt12',
+    site: '@sidgupt12',
   },
 };
 
