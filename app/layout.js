@@ -32,7 +32,10 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'ForgetAI',
     description: 'Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly.',
-    images: ['/preview.png'],
+    images: {
+      url: 'https://forgetai.siddhant.cc/preview.png',
+      alt: 'ForgetAI - Your personal AI memory assistant',
+    },
     creator: '@sidgupt12',
     site: '@sidgupt12',
   },
@@ -41,6 +44,25 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@sidgupt12" />
+        <meta name="twitter:creator" content="@sidgupt12" />
+        <meta name="twitter:title" content="ForgetAI" />
+        <meta name="twitter:description" content="Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly." />
+        <meta name="twitter:image" content="https://forgetai.siddhant.cc/preview.png" />
+        <meta name="twitter:image:alt" content="ForgetAI - Your personal AI memory assistant" />
+        
+        <meta property="og:title" content="ForgetAI" />
+        <meta property="og:description" content="Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly." />
+        <meta property="og:image" content="https://forgetai.siddhant.cc/preview.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="ForgetAI - Your personal AI memory assistant" />
+        <meta property="og:url" content="https://forgetai.siddhant.cc/" />
+        <meta property="og:site_name" content="ForgetAI" />
+        <meta property="og:type" content="website" />
+      </head>
       <body className={inter.className}>
         <ClerkProvider>
           <ThemeProviderWrapper>
