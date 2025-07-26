@@ -19,7 +19,7 @@ export const metadata = {
     siteName: 'ForgetAI',
     images: [
       {
-        url: '/preview.png',
+        url: 'https://forgetai.siddhant.cc/preview.png',
         width: 1200,
         height: 630,
         alt: 'ForgetAI - Your personal AI memory assistant',
@@ -32,10 +32,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'ForgetAI',
     description: 'Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly.',
-    images: {
-      url: 'https://forgetai.siddhant.cc/preview.png',
-      alt: 'ForgetAI - Your personal AI memory assistant',
-    },
+    images: ['https://forgetai.siddhant.cc/preview.png'],
     creator: '@sidgupt12',
     site: '@sidgupt12',
   },
@@ -52,6 +49,8 @@ export default function RootLayout({ children }) {
         <meta name="twitter:description" content="Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly." />
         <meta name="twitter:image" content="https://forgetai.siddhant.cc/preview.png" />
         <meta name="twitter:image:alt" content="ForgetAI - Your personal AI memory assistant" />
+        <meta name="twitter:image:width" content="1200" />
+        <meta name="twitter:image:height" content="630" />
         
         <meta property="og:title" content="ForgetAI" />
         <meta property="og:description" content="Your personal AI memory assistant that helps you remember everything important. Capture thoughts, organize ideas, and retrieve information instantly." />
